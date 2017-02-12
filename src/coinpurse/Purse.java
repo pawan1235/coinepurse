@@ -139,10 +139,7 @@ public class Purse {
 	 * @return money in the purse
 	 */
 	public String toString() {
-		// TODO complete this
-		return "you forgot to write Purse.toString()";
+		return count() + " coins with value " + getBalance();
 	}
 
 }
-// TODO remove the TODO comments after you complete them.
-// TODO When you are finished, there should not be any TODO. Including this one.

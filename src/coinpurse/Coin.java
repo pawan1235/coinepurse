@@ -10,7 +10,7 @@ public class Coin implements Comparable<Coin> {
 
 	public Coin(double value, String curr) {
 		this.value = value;
-		this.currency = "Baht";
+		this.currency = curr;
 	}
 
 	public boolean equals(Object arg) {
