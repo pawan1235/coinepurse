@@ -14,12 +14,10 @@ import java.util.List;
  */
 public class Purse {
 	/** Collection of objects in the purse. */
-	// TODO declare a List of Coins named "money".
 	List<Coin> money = new ArrayList<Coin>();
 
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
-	 * when the purse is created and cannot be changed.
 	 */
 	private final int capacity;
 

@@ -139,7 +139,7 @@ public class CoinUtil {
 				System.out.print(separator);
 
 		}
-		System.out.println(); // end the line
+		System.out.println(); 
 	}
 }
 
