@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Purse {
 	/** Collection of objects in the purse. */
-	List<Coin> money = new ArrayList<Coin>();
+	List<Valuable> money = new ArrayList<Valuable>();
 
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
@@ -49,8 +50,8 @@ public class Purse {
 	 */
 	public double getBalance() {
 		double total = 0;
-		for (Coin coin : money) {
-			total += coin.getValue();
+		for (Valuable val : money) {
+			total += val.getValue();
 		}
 		return total;
 	}
@@ -86,10 +87,10 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Coin coin) {
+	public boolean insert(Valuable coin) {
 		if (!isFull() && coin.getValue() != 0) {
 			money.add(coin);
-			Collections.sort(money);
+			money.sort(new CompareValue());
 			Collections.reverse(money);
 			return true;
 		}
@@ -107,12 +108,12 @@ public class Purse {
 	 * @return array of Coin objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
-	public Coin[] withdraw(double amount) {
+	public Valuable[] withdraw(double amount) {
 		if (amount < 0) {
 			return null;
 		}
 
-		List<Coin> templist = new ArrayList<Coin>();
+		List<Valuable> templist = new ArrayList<Valuable>();
 		for (int i = 0; i < money.size(); i++) {
 			if (money.get(i).getValue() <= amount) {
 				templist.add(money.get(i));
@@ -125,7 +126,7 @@ public class Purse {
 			money.addAll(templist);
 			return null;
 		}
-		Coin[] array = new Coin[templist.size()];
+		Valuable[] array = new Valuable[templist.size()];
 		templist.toArray(array);
 		return array;
 
@@ -137,7 +138,35 @@ public class Purse {
 	 * @return money in the purse
 	 */
 	public String toString() {
-		return count() + " coins with value " + getBalance();
+		int countCoins = 0;
+		int countBank = 0;
+		double bankBalace = 0;
+		double coinBalace = 0;
+		for (Valuable v : this.money) {
+			if (v.getValue() < 20) {
+				countCoins++;
+				coinBalace += v.getValue();
+			} else {
+				countBank++;
+				bankBalace += v.getValue();
+			}
+		}
+		return countCoins + " coins with value " + coinBalace + "\n" + countBank + " notes with value " + bankBalace;
+	}
+
+}
+
+/**
+ * Interface comparator of Valueble
+ * 
+ * @author Pawan Intawongsa
+ *
+ */
+class CompareValue implements Comparator<Valuable> {
+
+	@Override
+	public int compare(Valuable o1, Valuable o2) {
+		return (int) Math.signum(o1.getValue() - o2.getValue());
 	}
 
 }

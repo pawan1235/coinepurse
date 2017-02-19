@@ -6,7 +6,7 @@ package coinpurse;
  * @author User
  *
  */
-public class Coin implements Comparable<Coin> {
+public class Coin implements Comparable<Coin>,Valuable {
 	/** Value of the coin. */
 	private double value;
 	/** The currency, of course. */
@@ -88,6 +88,6 @@ public class Coin implements Comparable<Coin> {
 	 * @return coin's information
 	 */
 	public String toString() {
-		return String.format("%.2f-%s", this.value, this.currency);
+		return String.format("%.2f-%s ", this.value, this.currency);
 	}
 }
