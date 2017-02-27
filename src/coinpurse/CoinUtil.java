@@ -141,6 +141,12 @@ public class CoinUtil {
 	}
 }
 
+/**
+ * Interface for compare Valuable by currency.
+ * 
+ * @author Pawan Intawongsa
+ *
+ */
 class CompareByCurrency implements Comparator<Valuable> {
 
 	@Override

@@ -6,11 +6,9 @@ package coinpurse;
  * @author User
  *
  */
-public class Coin implements Comparable<Coin>,Valuable {
-	/** Value of the coin. */
-	private double value;
+public class Coin extends AbstractValuable {
 	/** The currency, of course. */
-	private String currency = "Baht";
+	static String DEFUALT_CURRENCY = "Baht";
 
 	/**
 	 * A coin with given value using the default currency.
@@ -19,7 +17,7 @@ public class Coin implements Comparable<Coin>,Valuable {
 	 *            of coin
 	 */
 	public Coin(double value) {
-		this.value = value;
+		super(value, DEFUALT_CURRENCY);
 	}
 
 	/**
@@ -31,38 +29,38 @@ public class Coin implements Comparable<Coin>,Valuable {
 	 *            of coin
 	 */
 	public Coin(double value, String curr) {
-		this.value = value;
-		this.currency = curr;
+		super(value, curr);
 	}
 
-	/**
-	 * Check if two coins are equal .
-	 * 
-	 * @return if equal return yes else return no.
-	 */
-	public boolean equals(Object arg) {
-		if (arg == null)
-			return false;
-		if (arg.getClass() != this.getClass())
-			return false;
-		Coin other = (Coin) arg;
-		if (this.value == other.value && this.currency.equalsIgnoreCase(other.currency)) {
-			return true;
-		}
-		return false;
-	}
+	// /**
+	// * Check if two coins are equal .
+	// *
+	// * @return if equal return yes else return no.
+	// */
+	// public boolean equals(Object arg) {
+	// if (arg == null)
+	// return false;
+	// if (arg.getClass() != this.getClass())
+	// return false;
+	// Coin other = (Coin) arg;
+	// if (this.value == other.value &&
+	// this.currency.equalsIgnoreCase(other.currency)) {
+	// return true;
+	// }
+	// return false;
+	// }
 
-	/**
-	 * Order coin by value
-	 * 
-	 * @return return 0 if value equal if less return -1 if more than return 1
-	 */
-	public int compareTo(Coin c) {
-		if (c == null)
-			return -1;
-		return (int) Math.signum(this.value - c.value);
-
-	}
+	// /**
+	// * Order coin by value
+	// *
+	// * @return return 0 if value equal if less return -1 if more than return 1
+	// */
+	// public int compareTo(Coin c) {
+	// if (c == null)
+	// return -1;
+	// return (int) Math.signum(this.value - c.value);
+	//
+	// }
 
 	/**
 	 * get Value of coin
@@ -88,6 +86,14 @@ public class Coin implements Comparable<Coin>,Valuable {
 	 * @return coin's information
 	 */
 	public String toString() {
+		if (super.currency.equals("Ringgit")) {
+			return String.format("%.2f-Sen", this.value * 100);
+		}
+		if (super.DEFAULT_CURRENCY.equals(super.DEFAULT_CURRENCY)) {
+			if (super.value < 1) {
+				return String.format("%.2f-satang", this.value * 100);
+			}
+		}
 		return String.format("%.2f-%s ", this.value, this.currency);
 	}
 }
